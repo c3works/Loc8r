@@ -19,13 +19,39 @@ module.exports.locationsCreate = function(req, res){
 };
 
 module.exports.locationsReadOne = function (req, res) {
-    sendJsonResponse(res, 200, {"status": "from ReadOne"});
+
+    if(req.params && req.params.locationid) {
+
+
+        Loc
+            .findById(req.params.locationid)
+            .exec(function(err, location){
+
+                if(!location){
+                    sendJsonResponse(res, 404, {
+                        "message": "locationid not found"
+                    });
+                    return;
+                } else if (err) {
+                    sendJsonResponse(res, 404, {
+                        "message": err
+                    });
+                    return;
+                }
+                sendJsonResponse(res, 200, location);
+            });
+
+    } else {
+        sendJsonResponse(res, 404, {
+            "message" : "No locationid in request"
+        });
+    }
 };
 
-module.exports.locationsUpdateOne = function(locationsid) {
+module.exports.locationsUpdateOne = function(req, res, locationsid) {
 
 };
 
-module.exports.locationsDeleteOne = function(locationsid) {
+module.exports.locationsDeleteOne = function(req, res, locationsid) {
 
 };
