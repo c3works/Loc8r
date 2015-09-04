@@ -24,6 +24,21 @@ var theEarth = (function () {
     };
 })();
 
+var buildLocationList = function (req, res, results, stats) {
+    var locations = [];
+    results.forEach(function (doc) {
+        locations.push({
+            distance: doc.dis,
+            name: doc.obj.name,
+            address: doc.obj.address,
+            rating: doc.obj.rating,
+            facilities: doc.obj.facilities,
+            _id: doc.obj._id
+        });
+    });
+    return locations;
+};
+
 /* GET list of locations */
 module.exports.locationsListByDistance = function(req, res) {
     var lng = parseFloat(req.query.lng);
@@ -58,21 +73,6 @@ module.exports.locationsListByDistance = function(req, res) {
             sendJSONresponse(res, 200, locations);
         }
     });
-};
-
-var buildLocationList = function (req, res, results, stats) {
-    var locations = [];
-    results.forEach(function (doc) {
-        locations.push({
-            distance: doc.dis,
-            name: doc.obj.name,
-            address: doc.obj.address,
-            rating: doc.obj.rating,
-            facilities: doc.obj.facilities,
-            _id: doc.obj._id
-        });
-    });
-    return locations;
 };
 
 /* GET a location by the id */

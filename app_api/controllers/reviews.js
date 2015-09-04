@@ -230,3 +230,7 @@ module.exports.reviewsDeleteOne = function (req, res) {
         }
     );
 };
+
+module.exports.addReview = function(req, res){
+    renderReviewForm(req, res);
+};
