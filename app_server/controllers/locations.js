@@ -96,8 +96,10 @@ var renderHomepage = function (req, res, responseBody) {
 
 var renderDetailpage = function (req, res, locDetail) {
 
+    console.log("--->> locDetail is: " + locDetail);
+
     res.render('location-info', {
-        title: locDetail,
+        title: locDetail.name,
         pageHeader: {title: locDetail.name},
         sidebar: {
             context: 'is on Loc8r because it has accessible wifi and space to sit down with your laptop and get some work done.',
@@ -150,7 +152,11 @@ module.exports.homelist = function (req, res) {
 // GET 'Location info' page
 
 module.exports.locationInfo = function (req, res, responseData) {
-    renderDetailpage(req, req, responseData);
+
+    getLocationInfo(req, res, function(req, res, responseData){
+        renderDetailpage(req, res, responseData);
+    })
+
 };
 
 // GET 'Add review' page
