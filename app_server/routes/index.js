@@ -8,8 +8,10 @@ var otherCtrl =     require('../controllers/other');
 //  location pages
 
 router.get('/', locationCtrl.homelist);
-router.get('/locations/:locationid', locationCtrl.locationInfo);
-router.get('/locations/review/new', locationCtrl.addReview);
+router.get('/location/:locationid', locationCtrl.locationInfo);
+router.get('/location/:locationid/review/new', locationCtrl.addReview);
+
+router.post('/location/:locationid/review/new', locationCtrl.doAddReview);
 
 //  other pages
 

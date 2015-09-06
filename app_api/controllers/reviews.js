@@ -6,30 +6,6 @@ var sendJSONresponse = function (res, status, content) {
     res.json(content);
 };
 
-/* POST a new review, providing a locationid */
-/* /api/locations/:locationid/reviews */
-module.exports.reviewsCreate = function (req, res) {
-    if (req.params.locationid) {
-        Loc
-            .findById(req.params.locationid)
-            .select('reviews')
-            .exec(
-            function (err, location) {
-                if (err) {
-                    sendJSONresponse(res, 400, err);
-                } else {
-                    doAddReview(req, res, location);
-                }
-            }
-        );
-    } else {
-        sendJSONresponse(res, 404, {
-            "message": "Not found, locationid required"
-        });
-    }
-};
-
-
 var doAddReview = function (req, res, location) {
     if (!location) {
         sendJSONresponse(res, 404, "locationid not found");
@@ -42,6 +18,7 @@ var doAddReview = function (req, res, location) {
         location.save(function (err, location) {
             var thisReview;
             if (err) {
+                console.log(err);
                 sendJSONresponse(res, 400, err);
             } else {
                 updateAverageRating(location._id);
@@ -81,6 +58,29 @@ var doSetAverageRating = function (location) {
             } else {
                 console.log("Average rating updated to", ratingAverage);
             }
+        });
+    }
+};
+
+/* POST a new review, providing a locationid */
+/* /api/locations/:locationid/reviews */
+module.exports.reviewsCreate = function (req, res) {
+    if (req.params.locationid) {
+        Loc
+            .findById(req.params.locationid)
+            .select('reviews')
+            .exec(
+            function (err, location) {
+                if (err) {
+                    sendJSONresponse(res, 400, err);
+                } else {
+                    doAddReview(req, res, location);
+                }
+            }
+        );
+    } else {
+        sendJSONresponse(res, 404, {
+            "message": "Not found, locationid required"
         });
     }
 };
@@ -229,8 +229,4 @@ module.exports.reviewsDeleteOne = function (req, res) {
             }
         }
     );
-};
-
-module.exports.addReview = function(req, res){
-    renderReviewForm(req, res);
 };
