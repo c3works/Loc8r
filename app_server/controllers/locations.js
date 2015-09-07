@@ -65,31 +65,15 @@ var getLocationInfo = function(req, res, callback){
 };
 
 // GET 'home' page
-var renderHomepage = function (req, res, responseBody) {
-
-    var message;
-    if (!(responseBody instanceof Array)) {
-        message = "API lookup error";
-        responseBody = [];
-    } else {
-        if (!responseBody.length) {
-            message = "No places found nearby";
-        }
-    }
-
-
+var renderHomepage = function (req, res) {
     res.render('locations-list', {
         title: 'Loc8r - find a place to wort with wifi',
         pageHeader: {
             title: 'Loc8r',
             strapline: 'Find places to work with WIFI near you!'
         },
-        locations: responseBody,
-        message: message,
         sidebar: 'Loc8r helps you find places to work when out and about.'
-
-    })
-
+    });
 };
 
 var renderDetailpage = function (req, res, locDetail) {
@@ -119,39 +103,7 @@ var renderReviewForm = function(req, res, locDetail){
 };
 
 module.exports.homelist = function (req, res) {
-    //renderHomepage(req, res);
-
-    var requestOptions, path;
-    path = '/api/locations';
-
-    requestOptions = {
-        url: apiOptions.server + path,
-        method: "GET",
-        json: {},
-        //** Carlisle Ave:
-        qs: {
-            lng: -87.998522,
-            lat: 41.994162,
-            maxDistance: 2000000000
-        }
-
-    };
-
-    request(
-        requestOptions,
-        function (err, response, body) {
-
-            var i, data;
-            data = body;
-            if (response.statusCode === 200 && data.length) {
-                for (i = 0; i < data.length; i++) {
-                    data[i].distance = _formatDistance(data[i].distance);
-                }
-            }
-            renderHomepage(req, res, data);
-        }
-    );
-
+    renderHomepage(req, res);
 };
 
 // GET 'Location info' page
