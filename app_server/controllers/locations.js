@@ -12,7 +12,7 @@ var _formatDistance = function (distance) {
 
     if (distance > 1) {
         numDistance = parseFloat(distance).toFixed(1);
-        unit = ' km';
+        unit = ' mi';
     } else {
         numDistance = parseInt(distance * 1000, 10);
         unit = ' m';
@@ -97,6 +97,7 @@ var renderReviewForm = function(req, res, locDetail){
         title: 'Review ' + locDetail.name + ' on Loc8r',
         pageHeader: {title: 'Review ' + locDetail.name },
         error: req.query.err,
+        url: req.query.err,
         user: {displayName: "Simon Holmes"}
     });
 

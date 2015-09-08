@@ -8,6 +8,7 @@ var sendJSONresponse = function (res, status, content) {
 
 var theEarth = (function () {
     var earthRadius = 6371; // km, miles is 3959
+    var milesPerKilo = 0.621371;
 
     var getDistanceFromRads = function (rads) {
         return parseFloat(rads * earthRadius);
@@ -19,6 +20,7 @@ var theEarth = (function () {
 
     return {
         earthRadius: earthRadius,
+        milesPerKilo: milesPerKilo,
         getDistanceFromRads: getDistanceFromRads,
         getRadsFromDistance: getRadsFromDistance
     };
@@ -28,7 +30,7 @@ var buildLocationList = function (req, res, results, stats) {
     var locations = [];
     results.forEach(function (doc) {
         locations.push({
-            distance: doc.dis,
+            distance: doc.dis * theEarth.milesPerKilo,
             name: doc.obj.name,
             address: doc.obj.address,
             rating: doc.obj.rating,
@@ -50,7 +52,7 @@ module.exports.locationsListByDistance = function(req, res) {
     };
     var geoOptions = {
         spherical: true,
-        maxDistance: theEarth.getRadsFromDistance(maxDistance),
+        maxDistance: maxDistance * 1000,
         distanceMultiplier: 1 / 1000,
         num: 10
     };
