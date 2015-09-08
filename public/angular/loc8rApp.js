@@ -23,13 +23,13 @@ var formatDistance = function(){
     }
 };
 
-//custom directive - star ratings
+//custom directives - star ratings
 var ratingStars = function() {
     return {
         scope: {
             thisRating: '=rating'
         },
-        templateUrl: '/angular/rating-stars.html'
+        templateUrl: '/angular/ratingStars.template.html'
     };
 };
 
