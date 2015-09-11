@@ -4,8 +4,8 @@
         .controller('locationDetailCtrl', locationDetailCtrl);
 
 
-    locationDetailCtrl.$inject = ['$routeParams', 'loc8rData'];
-    function locationDetailCtrl ($routeParams, loc8rData){
+    locationDetailCtrl.$inject = ['$routeParams','$modal', 'loc8rData'];
+    function locationDetailCtrl ($routeParams, $modal, loc8rData){
         var vm = this;
         vm.locationid = $routeParams.locationid;
 
@@ -20,8 +20,14 @@
                console.log(e);
             });
 
-        vm.pageHeader = {
-            title: vm.locationid
-        }
+        vm.popupReviewForm = function() {
+            alert("Let's add a review!")
+        };
+
+
+
+        //vm.pageHeader = {
+        //    title: vm.locationid
+        //}
     }
 })();
