@@ -30,7 +30,7 @@ var buildLocationList = function (req, res, results, stats) {
     var locations = [];
     results.forEach(function (doc) {
         locations.push({
-            distance: doc.dis * theEarth.milesPerKilo,
+            distance: doc.dis / 1000 * theEarth.milesPerKilo,
             name: doc.obj.name,
             address: doc.obj.address,
             rating: doc.obj.rating,
