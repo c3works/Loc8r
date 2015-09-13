@@ -19,12 +19,14 @@
 
             console.log(" ** Running inside onSubmit function of reviewModalCtrl ** ");
 
-            vm.formError = "";
+            vm.formError = " Waht Up!!";
             if(!vm.formData.name || !vm.formData.reviewText) {
                 vm.formError = "Fill in the FIELDS";
             } else {
                 console.log("*****>> " + formData.name + " | " + formData.reviewText);
             }
+
+            console.log(vm.formError);
 
         };
 

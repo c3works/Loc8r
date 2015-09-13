@@ -27,7 +27,7 @@
                     vm.data = { locations: data };
                 })
                 .error(function (e) {
-                    vm.message = "Sorry, something's gone wrong";
+                    vm.message = "Sorry, something's gone wrong in getting your location";
                 });
         };
         vm.showError = function (error) {
