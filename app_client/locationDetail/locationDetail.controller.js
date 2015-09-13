@@ -29,7 +29,8 @@
                     locationData: function(){
                         return {
                             locationid: vm.locationid,
-                            locationName: vm.data.location.name
+                            name: vm.data.location.name,
+                            reviewText: vm.data.location.reviewText
                         };
                     }
 

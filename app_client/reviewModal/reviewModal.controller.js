@@ -18,6 +18,8 @@
         vm.onSubmit = function() {
 
             console.log(" ** Running inside onSubmit function of reviewModalCtrl ** ");
+            console.log(vm.locationData);
+            console.log(vm.locationData.name + " | " + vm.locationData.locationid);
 
             vm.formError = " Waht Up!!";
             if(!vm.locationData.name || !vm.locationData.reviewText) {
