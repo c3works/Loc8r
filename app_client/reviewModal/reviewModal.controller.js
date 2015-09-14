@@ -10,10 +10,10 @@
         vm.locationData = locationData;
 
 
-        vm.doTest = function(){
-          console.log(" -->> Is this working??");
-            return false;
-        };
+        //vm.doTest = function(){
+        //  console.log(" -->> Is this working??");
+        //    return false;
+        //};
 
         vm.onSubmit = function() {
 
@@ -21,14 +21,15 @@
             console.log(vm.locationData);
             console.log(vm.locationData.name + " | " + vm.locationData.locationid);
 
-            vm.formError = " Waht Up!!";
-            if(!vm.locationData.name || !vm.locationData.reviewText) {
+            //vm.formError = " Waht Up!!";
+            if(!vm.locationData.name || !vm.locationData.rating || !vm.locationData.reviewText) {
                 vm.formError = "Fill in the FIELDS";
             } else {
-                console.log("*****>> " + locationData.name + " | " + locationData.reviewText);
+                console.log("*****>> " + locationData.name + " | " + locationData.rating +  " | " + locationData.reviewText);
+                return false;
             }
 
-            console.log(vm.formError);
+            //console.log(vm.formError);
 
         };
 
