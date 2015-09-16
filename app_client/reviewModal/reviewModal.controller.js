@@ -18,15 +18,17 @@
         vm.onSubmit = function() {
 
             console.log(" ** Running inside onSubmit function of reviewModalCtrl ** ");
+            console.log(vm.formData);
+            return false;
 
-            vm.formError = " Waht Up!!";
-            if(!vm.formData.name || !vm.formData.reviewText) {
-                vm.formError = "Fill in the FIELDS";
-            } else {
-                console.log("*****>> " + formData.name + " | " + formData.reviewText);
-            }
-
-            console.log(vm.formError);
+            //vm.formError = " Waht Up!!";
+            //if(!vm.formData.name || !vm.formData.reviewText) {
+            //    vm.formError = "Fill in the FIELDS";
+            //} else {
+            //    console.log("*****>> " + vm.formData.name + " | " + vm.formData.reviewText);
+            //}
+            //
+            //console.log(vm.formError);
 
         };
 
