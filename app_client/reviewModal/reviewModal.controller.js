@@ -4,38 +4,54 @@
         .controller('reviewModalCtrl', reviewModalCtrl);
 
 
-    reviewModalCtrl.$inject = ['$modalInstance', 'locationData'];
-    function reviewModalCtrl ($modalInstance, locationData) {
+    reviewModalCtrl.$inject = ['$modalInstance', 'locationData', 'loc8rData'];
+    function reviewModalCtrl ($modalInstance, locationData, loc8rData) {
         var vm = this;
         vm.locationData = locationData;
-
-
-        vm.doTest = function(){
-          console.log(" -->> Is this working??");
-            return false;
-        };
 
         vm.onSubmit = function() {
 
             console.log(" ** Running inside onSubmit function of reviewModalCtrl ** ");
-            console.log(vm.formData);
-            return false;
 
-            //vm.formError = " Waht Up!!";
-            //if(!vm.formData.name || !vm.formData.reviewText) {
-            //    vm.formError = "Fill in the FIELDS";
-            //} else {
-            //    console.log("*****>> " + vm.formData.name + " | " + vm.formData.reviewText);
-            //}
-            //
-            //console.log(vm.formError);
+
+            vm.formError = "";
+
+            if(!vm.formData.name || !vm.formData.rating || !vm.formData.reviewText) {
+                vm.formError = "We need all the FIELDS, please";
+                return false;
+            } else {
+                console.log(vm.formData);
+                vm.doAddReview(vm.locationData.locationid, vm.formData);
+                return false;
+            }
 
         };
 
+        vm.doAddReview = function(locationid, formData) {
+            loc8rData.addReviewById(locationid, {
+                author : formData.name,
+                rating : formData.rating,
+                reviewText : formData.reviewText
+            })
+                .success(function(data){
+                    console.log("Success!");
+                    vm.modal.close(data);
+                })
+                .error(function(data){
+                    vm.formError = "Your review was not saved - try again!";
+                });
+            return false;
+        };
+
         vm.modal = {
-        cancel : function () {
-            $modalInstance.dismiss('cancel');
-        }
+
+            close: function(result){
+                $modalInstance.close(result);
+            },
+
+            cancel : function () {
+                $modalInstance.dismiss('cancel');
+            }
     };
 }
 })();
